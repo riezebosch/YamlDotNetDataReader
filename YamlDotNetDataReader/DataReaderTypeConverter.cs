@@ -21,7 +21,7 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
             {
                 if (!table.Columns.Contains(field.Value))
                 {
-                    table.Columns.Add(field.Value);
+                    table.Columns.Add(field.Value, typeof(object));
                 }
 
                 row[field.Value] = rootDeserializer(typeof(object));
