@@ -24,7 +24,7 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
                     table.Columns.Add(field.Value, typeof(object));
                 }
 
-                row[field.Value] = rootDeserializer(typeof(object));
+                row[field.Value] = ToCrlf(rootDeserializer(typeof(object)));
             }
 
             table.Rows.Add(row);
@@ -47,10 +47,16 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
                 if (!exportNullValues && reader.IsDBNull(field)) continue;
                 
                 emitter.Emit(new Scalar(reader.GetName(field)));
-                serializer(!reader.IsDBNull(field) ? reader[field] : null, reader.GetFieldType(field));
+                serializer(!reader.IsDBNull(field) ? ToLf(reader[field]) : null, reader.GetFieldType(field));
             }
             emitter.Emit(new MappingEnd());
         }
         emitter.Emit(new SequenceEnd());
     }
+
+    private static object? ToCrlf(object? value) => 
+        value is string str ? str.ReplaceLineEndings("\r\n") : value;
+    
+    private static object ToLf(object value) => 
+        value is string str ? str.ReplaceLineEndings("\n") : value;
 }

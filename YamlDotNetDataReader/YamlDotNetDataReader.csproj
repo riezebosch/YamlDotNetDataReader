@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>Latest</LangVersion>
@@ -20,13 +20,13 @@
         <Authors>Manuel Riezebosch</Authors>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Description>Convert IDataReader back and forth to yaml.</Description>
-        <PackageReleaseNotes>byte array converter</PackageReleaseNotes>
+        <PackageReleaseNotes>normalize newlines</PackageReleaseNotes>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>yaml;system.data;idatareader;sqlbulkcopy;etl</PackageTags>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/riezebosch/YamlDotNetDataReader.git</RepositoryUrl>
-        <Version>0.0.4</Version>
+        <Version>0.0.7</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 </Project>

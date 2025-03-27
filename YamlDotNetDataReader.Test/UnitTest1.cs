@@ -7,7 +7,7 @@ namespace YamlDotNetDataReader.Tests;
 
 public class UnitTest1
 {
-    [Theory]
+    [Theory(Skip = "only works with db")]
     [InlineData("ptUICOMPONENTPROPERTYVALUE")]
     [InlineData("vtItem")]
     [InlineData("vtDocument")]
@@ -27,7 +27,7 @@ public class UnitTest1
         Factory.Serializer().Serialize(writer, reader);
     }
 
-    [Theory]
+    [Theory(Skip = "only works with db")]
     [InlineData("ptUICOMPONENTPROPERTYVALUE")]
     [InlineData("vtItem")]
     [InlineData("vtDocument")]
@@ -94,6 +94,38 @@ public class UnitTest1
         var data = deserializer.Deserialize<IDataReader>("");
         data.Should().BeNull();
     }
+    
+    [Fact]
+    public void FromYamlNewlines()
+    {
+        var deserializer = Factory
+            .Builder
+            .Deserializer()
+            .Build();
+
+        var data = deserializer.Deserialize<IDataReader>("- c1: >+ \n    hello\n");
+        data.Read().Should().BeTrue();
+        ((string)data[0]).Should().Be("hello\r\n");
+    }
+
+    [Fact]
+    public void Newline()
+    {
+        var yaml = new Serializer().Serialize(new { c = "asdf\r\n" });
+        yaml.Should().Be("c: >+\n  asdf\n");
+        
+        var s = new Deserializer().Deserialize<IDictionary<string, object>>(yaml);
+        s["c"].Should().Be("asdf\n");
+        
+        new Serializer().Serialize(s).Should().Be("c: >\n  asdf\n");
+    }
+    
+    [Fact]
+    public void Normalize()
+    {
+        var s = "hello\r\n";
+        s.ReplaceLineEndings("\n").Should().Be("hello\n");
+    }
 
     [Fact]
     public void ToYamlNullSkip()
@@ -117,8 +149,9 @@ public class UnitTest1
     [Fact]
     public void ToYamlWithNewLines()
     {
-        var serializer = new SerializerBuilder()
-            .WithTypeConverter(new DataReaderTypeConverter())
+        var serializer = Factory
+            .Builder
+            .Serializer()
             .Build();
 
         var data = new DataTable();
@@ -148,6 +181,22 @@ public class UnitTest1
                                conversation
 
                            """);
+    }
+    
+    [Fact]
+    public void ToYamlWithCRLF()
+    {
+        var serializer = Factory
+            .Builder
+            .Serializer()
+            .Build();
+
+        var data = new DataTable();
+        data.Columns.Add("x");
+        data.Rows.Add("hello\r\n");
+        var result = serializer.Serialize(data.CreateDataReader());
+
+        result.Should().Be("- x: >\n    hello\n");
     }
 
     [Fact]
