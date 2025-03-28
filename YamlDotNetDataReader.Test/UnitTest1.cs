@@ -105,7 +105,7 @@ public class UnitTest1
 
         var data = deserializer.Deserialize<IDataReader>("- c1: >+ \n    hello\n");
         data.Read().Should().BeTrue();
-        ((string)data[0]).Should().Be("hello\r\n");
+        ((string)data[0]).Should().Be("hello\n");
     }
 
     [Fact]

@@ -24,7 +24,7 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
                     table.Columns.Add(field.Value, typeof(object));
                 }
 
-                row[field.Value] = ToCrlf(rootDeserializer(typeof(object)));
+                row[field.Value] = rootDeserializer(typeof(object));
             }
 
             table.Rows.Add(row);
@@ -54,9 +54,6 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
         emitter.Emit(new SequenceEnd());
     }
 
-    private static object? ToCrlf(object? value) => 
-        value is string str ? str.ReplaceLineEndings("\r\n") : value;
-    
     private static object ToLf(object value) => 
         value is string str ? str.ReplaceLineEndings("\n") : value;
 }

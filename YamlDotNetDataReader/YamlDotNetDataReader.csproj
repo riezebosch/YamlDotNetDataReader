@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-      <PackageReference Include="YamlDotNet" Version="16.1.2" />
+      <PackageReference Include="YamlDotNet" Version="16.3.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,13 +20,13 @@
         <Authors>Manuel Riezebosch</Authors>
         <NeutralLanguage>en-US</NeutralLanguage>
         <Description>Convert IDataReader back and forth to yaml.</Description>
-        <PackageReleaseNotes>normalize newlines</PackageReleaseNotes>
+        <PackageReleaseNotes>replace newlines with linefeed on serialize</PackageReleaseNotes>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageTags>yaml;system.data;idatareader;sqlbulkcopy;etl</PackageTags>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/riezebosch/YamlDotNetDataReader.git</RepositoryUrl>
-        <Version>0.0.7</Version>
+        <Version>0.0.8-rc1</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 </Project>
