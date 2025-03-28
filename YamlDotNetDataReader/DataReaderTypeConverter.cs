@@ -46,7 +46,7 @@ public class DataReaderTypeConverter(bool exportNullValues = false) : IYamlTypeC
             {
                 if (!exportNullValues && reader.IsDBNull(field)) continue;
                 
-                emitter.Emit(new Scalar(reader.GetName(field)));
+                emitter.Emit(new Scalar(AnchorName.Empty, TagName.Empty, reader.GetName(field), ScalarStyle.Any, true, true));
                 serializer(!reader.IsDBNull(field) ? ToLf(reader[field]) : null, reader.GetFieldType(field));
             }
             emitter.Emit(new MappingEnd());

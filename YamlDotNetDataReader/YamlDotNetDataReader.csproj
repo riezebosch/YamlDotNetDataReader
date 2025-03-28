@@ -26,7 +26,7 @@
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/riezebosch/YamlDotNetDataReader.git</RepositoryUrl>
-        <Version>0.0.8-rc1</Version>
+        <Version>0.0.8</Version>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 </Project>

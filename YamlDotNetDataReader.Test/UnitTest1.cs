@@ -107,6 +107,36 @@ public class UnitTest1
         data.Read().Should().BeTrue();
         ((string)data[0]).Should().Be("hello\n");
     }
+    
+    [Fact]
+    public void FromYamlTrailing()
+    {
+        var deserializer = Factory
+            .Builder
+            .Deserializer()
+            .WithAttemptingUnquotedStringTypeDeserialization()
+            .Build();
+
+        var data = deserializer.Deserialize<IDataReader>("- c1: 'hello '");
+        data.Read().Should().BeTrue();
+        ((string)data[0]).Should().Be("hello\t");
+    }
+    
+    [Fact]
+    public void ToYamlTrailing()
+    {
+        var serializer = Factory
+            .Builder
+            .Serializer()
+            .Build();
+        
+        var data = new DataTable();
+        data.Columns.Add("x");
+        data.Rows.Add("hello ");
+        var yaml = serializer.Serialize(data.CreateDataReader());
+
+        yaml.Should().Be("- x: 'hello '\n");
+    }
 
     [Fact]
     public void Newline()
